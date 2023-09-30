@@ -1,26 +1,13 @@
 
-const BookingRow = ({ booking }) => {
+const BookingRow = ({ booking, handleDeleted }) => {
     const { _id, custoMername, email, date, img, service, serviceName, price } = booking;
-    const handleDeleted = id => {
-        const porseed = confirm('Are You Sure Want To Delete')
-        if (porseed) {
-            fetch(`http://localhost:5000/bookings/${_id}`, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.deletedCount > 0) {
-                        alert('Deleted Succes')
-                    }
-                })
-        }
-    }
+
+
 
     return (
         <tr>
             <th>
-                <button onClick={handleDeleted} className="btn btn-circle btn-outline btn-sm">
+                <button onClick={() => handleDeleted(_id)} className="btn btn-circle btn-outline btn-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </th>
