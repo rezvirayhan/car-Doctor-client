@@ -4,8 +4,8 @@ import { AuthContext } from '../../../Provider/AuthProvider';
 import login from '../../../assets/images/login/login.svg';
 
 const SignIn = () => {
+    const { signIn } = useContext(AuthContext)
     const handlelogin = event => {
-        const { signIn } = useContext(AuthContext)
         event.preventDefault()
         const form = event.target;
         const email = form.email.value;
