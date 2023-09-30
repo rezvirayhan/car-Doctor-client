@@ -1,6 +1,6 @@
 
-const BookingRow = ({ booking, handleDeleted }) => {
-    const { _id, custoMername, email, date, img, service, serviceName, price } = booking;
+const BookingRow = ({ handleBookingConfrem, booking, handleDeleted }) => {
+    const { _id, custoMername, email, date, img, service, status, serviceName, price } = booking;
 
 
 
@@ -32,7 +32,13 @@ const BookingRow = ({ booking, handleDeleted }) => {
             <td>${price}</td>
             <td>{date}</td>
             <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                {
+
+                    status === "Confrim" ? <button className="btn btn-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                        Confirm Done
+                    </button> :
+                        <button onClick={() => handleBookingConfrem(_id)} className="btn btn-ghost btn-xs">Please Confirm</button>}
             </th>
         </tr>
     );
