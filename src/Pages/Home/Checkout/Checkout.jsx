@@ -16,7 +16,7 @@ const Checkout = () => {
         const booking = {
             custoMername: name, email, date, img, service: _id, serviceName: title, price: price
         }
-      
+
 
         fetch('http://localhost:5000/bookings', {
             method: 'POST',

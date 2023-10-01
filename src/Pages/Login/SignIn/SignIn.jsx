@@ -1,10 +1,15 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import login from '../../../assets/images/login/login.svg';
+import SocialLogin from '../../Shared/SocialLogin/SocialLogin';
 
 const SignIn = () => {
     const { signIn } = useContext(AuthContext)
+    const location = useLocation()
+    const navagate = useNavigate()
+    const from = location.state?.from?.pathname || "/";
+
     const handlelogin = event => {
         event.preventDefault()
         const form = event.target;
@@ -14,9 +19,13 @@ const SignIn = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
+
+
                 console.log(user);
+                navagate(from, { replace: true })
+
             })
-            .catch(console.log(error))
+        //  .catch(console.log(error))
 
     }
     return (
@@ -39,7 +48,7 @@ const SignIn = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input name='password' type="text" placeholder="password" className="input input-bordered" />
+                                <input name='password' type="password" placeholder="password" className="input input-bordered" />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
@@ -49,6 +58,7 @@ const SignIn = () => {
                             </div>
                         </form>
                         <p className='my-4 text-center'>New To Car Doctor's <Link className='text-orange-600 font-bold' to='/signin'>Sign Up</Link></p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

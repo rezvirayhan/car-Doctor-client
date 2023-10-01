@@ -10,7 +10,12 @@ const Bookings = () => {
     const { user } = useContext(AuthContext)
     const url = `http://localhost:5000/bookings?email=${user?.email}`
     useEffect(() => {
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('Car-Doctor-Token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setBookings(data))
     }, [url])
@@ -25,6 +30,7 @@ const Bookings = () => {
                     console.log(data)
                     if (data.deletedCount > 0) {
                         alert('Deleted Succes');
+
                         const remaing = bookings.filter(booking => booking._id !== id)
                         setBookings(remaing)
                     }
@@ -41,7 +47,7 @@ const Bookings = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                //  console.log(data);
                 if (data.modifiedCount > 0) {
                     //  UPDATE STATE 
                     const remaing = bookings.filter(booking => booking._id !== id)
@@ -87,7 +93,7 @@ const Bookings = () => {
                             {/* row 1 */}
                             {
                                 bookings.map(booking => <BookingRow
-                                    key={booking._id}
+                                    key={booking?._id}
                                     booking={booking}
                                     handleBookingConfrem={handleBookingConfrem}
                                     handleDeleted={handleDeleted}
